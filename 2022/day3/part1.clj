@@ -22,4 +22,3 @@
        (map item-in-both)
        (map priority)
        (apply +)))
-
