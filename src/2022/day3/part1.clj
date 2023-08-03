@@ -16,7 +16,7 @@
       (and (>= c-int 97) (<= c-int 122)) (- c-int 96)
       (and (>= c-int 65) (<= c-int 90))  (- c-int 38))))
 
-(let [lines (s/split (slurp "2022/day3/input.txt") #"\n")]
+(let [lines (s/split (slurp "src/2022/day3/input.txt") #"\n")]
   (->> lines
        (map parse-line)
        (map item-in-both)

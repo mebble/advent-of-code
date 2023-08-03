@@ -1,16 +1,5 @@
-(require '[clojure.string :as s])
-
-(defn- flip [f]
-  ;; #util https://stackoverflow.com/a/44995482/5811761
-  (fn [& xs] (apply f (reverse xs))))
-
-(def split* 
-  ;; #util
-  (flip s/split))
-
-(defn transpose [m]
-  ;; #util https://stackoverflow.com/a/10347404/5811761
-  (apply mapv vector m))
+(require '[clojure.string :as s]
+         '[utils.core :refer [split* transpose]])
 
 (defn parse-stacks [stacks-str]
   (->> stacks-str
@@ -41,7 +30,7 @@
 (defn move-crates [stacks moves]
   (reduce do-move stacks moves))
 
-(let [[stacks-str procedure-str] (s/split (slurp "2022/day5/input.txt") #"\n\n")
+(let [[stacks-str procedure-str] (s/split (slurp "src/2022/day5/input.txt") #"\n\n")
       stacks (parse-stacks stacks-str)
       moves (parse-procedure procedure-str)]
   (->> (move-crates stacks moves)

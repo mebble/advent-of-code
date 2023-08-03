@@ -1,9 +1,5 @@
-(require '[clojure.string :as s])
-
-(defn vec-remove
-  "remove elem in coll https://stackoverflow.com/a/18319708/5811761"
-  [pos coll]
-  (into (subvec coll 0 pos) (subvec coll (inc pos))))
+(require '[clojure.string :as s]
+         '[utils.core :refer [vec-remove]])
 
 (defn max-three
   [maxes x]
@@ -14,7 +10,7 @@
           [min-i, _] (apply min-key second candidates-enumerated)]
       (vec-remove min-i candidates))))
 
-(let [ss (s/split (slurp "2022/day1/input.txt") #"\n\n")]
+(let [ss (s/split (slurp "src/2022/day1/input.txt") #"\n\n")]
   (->> ss
        (map #(s/split % #"\n"))
        (map (fn [calories-str] (map #(Integer/parseInt %) calories-str)))

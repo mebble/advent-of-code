@@ -42,7 +42,7 @@
         s2 (map outcome-score [(outcome-matching my-outcome) my-outcome])]
     (map + s1 s2)))
 
-(let [lines (s/split (slurp "2022/day2/input.txt") #"\n")]
+(let [lines (s/split (slurp "src/2022/day2/input.txt") #"\n")]
   (->> lines
        (map #(s/split % #" "))
        (map plays->scores)

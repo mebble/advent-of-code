@@ -13,7 +13,7 @@
        (reduce set/intersection)
        (first)))
 
-(let [lines (s/split (slurp "2022/day3/input.txt") #"\n")
+(let [lines (s/split (slurp "src/2022/day3/input.txt") #"\n")
       groups (partition 3 lines)]
   (->> groups
        (map common-item-type)
