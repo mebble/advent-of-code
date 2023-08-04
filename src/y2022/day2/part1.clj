@@ -31,7 +31,7 @@
         s2 (map outcome-score (play-round shapes))]
     (map + s1 s2)))
 
-(let [lines (s/split (slurp "src/2022/day2/input.txt") #"\n")]
+(let [lines (s/split (slurp "src/y2022/day2/input.txt") #"\n")]
   (->> lines
        (map #(s/split % #" "))
        (map plays->scores)
