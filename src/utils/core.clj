@@ -9,6 +9,9 @@
 (def split* 
   (flip s/split))
 
+(defn split-space [string]
+  (s/split string #"\s+"))
+
 (defn transpose
   "https://stackoverflow.com/a/10347404/5811761"
   [m]
