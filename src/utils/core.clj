@@ -21,3 +21,6 @@
   "remove elem in coll https://stackoverflow.com/a/18319708/5811761"
   [pos coll]
   (into (subvec coll 0 pos) (subvec coll (inc pos))))
+
+(defn char->int [c]
+  (Integer/parseInt (str c)))
