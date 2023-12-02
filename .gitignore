@@ -3,3 +3,5 @@
 .clj-kondo
 .calva
 .nrepl-port
+input*.txt
+sample*.txt
