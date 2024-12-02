@@ -1,11 +1,9 @@
 (ns y2024.day1.solution
-  (:require [clojure.string :as s]))
+  (:require [clojure.string :as s]
+            [y2024.common :refer [parse-int]]))
 
 (defn- transpose [m]
   (apply mapv vector m))
-
-(defn- parse-int [s]
-  (Integer/parseInt s))
 
 (defn- parse-input [input]
   (let [lines (s/split-lines input)]
