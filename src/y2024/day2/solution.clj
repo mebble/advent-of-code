@@ -1,6 +1,6 @@
 (ns y2024.day2.solution
   (:require [clojure.string :as s]
-            [y2024.common :refer [parse-int]]))
+            [y2024.common :refer [parse-int remove-at]]))
 
 (defn- parse-input [input]
   (let [lines (s/split-lines input)]
@@ -36,8 +36,26 @@
        (reductions safe-pairs {:safe? true})
        (every? :safe?)))
 
+;; Part 1
 (let [reports (parse-input (slurp "src/y2024/day2/input.txt"))]
-    (->> reports
-         (filter safe-report?)
-         (count)))
+  (->> reports
+       (filter safe-report?)
+       (count)))
+
+(defn- sub-reports [report]
+    (->> (range (count report))
+         (map (fn [i] (remove-at i (vec report))))))
+
+(defn- safe-sub-reports? [report]
+  (some safe-report? (sub-reports report)))
+
+(defn- safe-report-dampened? [report]
+  (or (safe-report? report)
+      (safe-sub-reports? report)))
+
+;; Part 2
+(let [reports (parse-input (slurp "src/y2024/day2/input.txt"))]
+  (->> reports
+       (filter safe-report-dampened?)
+       (count)))
 
