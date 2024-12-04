@@ -35,21 +35,19 @@
     (re-seq pattern input)))
 
 (defn- get-enabled-muls [muls-n-conds]
-  (let [do? (atom true)]
-    (loop [items muls-n-conds
-           enabled-muls '()]
-      (if (empty? items)
-        enabled-muls
-        (let [item (first items)
-              others (rest items)]
-          (case item
-            "do()" (do (reset! do? true)
-                       (recur others enabled-muls))
-            "don't()" (do (reset! do? false)
-                          (recur others enabled-muls))
-            (recur others (if @do?
-                            (cons item enabled-muls)
-                            enabled-muls))))))))
+  (loop [items muls-n-conds
+         enabled-muls '()
+         do? true]
+    (if (empty? items)
+      enabled-muls
+      (let [item (first items)
+            others (rest items)]
+        (case item
+          "do()"    (recur others enabled-muls true)
+          "don't()" (recur others enabled-muls false)
+          (recur others
+                 (if do? (cons item enabled-muls) enabled-muls)
+                 do?))))))
 
 ;; Part 2
 (let [muls-n-conds (extract-muls-conditions (slurp "src/y2024/day3/input.txt"))]
