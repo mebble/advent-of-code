@@ -11,13 +11,16 @@
 (def bottom-right [[0 0] [1 1] [2 2] [3 3]])
 (def dirs [left right top bottom top-left top-right bottom-left bottom-right])
 
-(defn- is-xmas [grid loc dir]
+(defn- get-letters [grid loc dir]
   (let [[y x] loc]
     (->> dir
          (map (fn [[dy dx]] [(+ y dy) (+ x dx)]))
-         (map (fn [loc] (get-in grid loc)))
-         (s/join)
-         (#(= "XMAS" %1)))))
+         (map (fn [loc] (get-in grid loc))))))
+
+(defn- is-xmas [grid loc dir]
+  (->> (get-letters grid loc dir)
+       (s/join)
+       (#(= "XMAS" %1))))
 
 (defn- num-xmas [grid loc]
   (->> dirs
@@ -33,3 +36,21 @@
                  x xs]
              (num-xmas word-grid [y x]))))
 
+(def slope-up [[1 -1] [0 0] [-1 1]])
+(def slope-down [[-1 -1] [0 0] [1 1]])
+(def mas #{\M \A \S})
+
+(defn- is-x-mas [grid loc]
+  (and (= \A (get-in grid loc))
+       (= mas (set (get-letters grid loc slope-up)))
+       (= mas (set (get-letters grid loc slope-down)))))
+
+;; Part 2
+(let [word-grid (s/split-lines (slurp "src/y2024/day4/input.txt"))
+      ys (range (count word-grid))
+      xs (range (count (first word-grid)))]
+  (->> (for [y ys
+             x xs]
+         (is-x-mas word-grid [y x]))
+       (filter identity)
+       (count)))
