@@ -44,3 +44,18 @@
        (filter (partial correct? rules))
        (map middle-page)
        (apply +)))
+
+(defn- fix-update [rules update]
+  (sort (fn [p1 p2]
+          (if (satisfies-rules? rules p1 p2)
+            -1
+            1))
+        update))
+
+;; Part 2
+(let [[rules updates] (parse-input (slurp "src/y2024/day5/input.txt"))]
+  (->> updates
+       (filter (complement (partial correct? rules)))
+       (map (partial fix-update rules))
+       (map middle-page)
+       (apply +)))
