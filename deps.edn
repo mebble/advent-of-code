@@ -1,4 +1,5 @@
-{:deps {aoc/aoc {:local/root "."}}
+{:deps {aoc/aoc {:local/root "."}
+        org.clojure/math.combinatorics {:mvn/version "0.3.0"}}
  :aliases {:repl/conjure {:extra-deps {nrepl/nrepl       {:mvn/version "0.9.0"}
                                        cider/cider-nrepl {:mvn/version "0.28.4"}}
                           :main-opts  ["-m" "nrepl.cmdline"
