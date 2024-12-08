@@ -14,7 +14,7 @@
       [y (dec x)])))
 
 (defn- parse-input [input]
-  (let [grid (s/split-lines input)
+  (let [grid (vec (map (comp vec seq) (s/split-lines input)))
         width (count (first grid))
         offset (s/index-of (s/replace input #"\n" "") "^")
         y (quot offset width)
